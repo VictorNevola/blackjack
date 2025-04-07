@@ -1,22 +1,28 @@
-# blackjack
+# Blackjack em Clojure
 
-A Clojure library designed to ... well, that part is up to you.
+Este é um projeto simples de Blackjack implementado em Clojure com o objetivo de estudar e praticar conceitos da linguagem.
 
-## Usage
+## Sobre o projeto
 
-FIXME
+O projeto implementa um jogo de Blackjack (21) com interface em texto e representação visual de cartas usando caracteres ASCII. Este projeto foi desenvolvido exclusivamente para fins educacionais, com foco em aprender:
 
-## License
+- Programação funcional em Clojure
+- Estruturas de dados imutáveis
+- Funções de ordem superior
+- Aplicação parcial de funções (partial)
+- Manipulação de estado
 
-Copyright © 2025 FIXME
+## Funcionalidades
 
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
+- Geração aleatória de cartas
+- Cálculo automático de pontos
+- Visualização de cartas em ASCII art
+- Lógica para decisões do dealer
+- Sistema de turnos para jogador e dealer
 
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+## Como executar
+
+Para executar o jogo, você precisa ter o Leiningen instalado. Em seguida:
+
+```bash
+lein run
