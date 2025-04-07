@@ -38,25 +38,44 @@
     (assoc new-player :points points)))
 
 (defn player-decision-continue? [player]
+  (println (:player-name player) ": mais carta?")
   (= (read-line) "sim"))
 
 (defn dealer-decision-continue? [player-points dealer]
   (let [dealer-points (:points dealer)]
-    (< dealer-points player-points)))
+    (if (> player-points 21) false (<= dealer-points player-points))))
 
 (defn game [player fn-decision-continue?]
-  (println (:player-name player) ": mais carta?")
   (if (fn-decision-continue? player)
     (let [player-with-more-cards (more-card player)]
       (card-core/print-player player-with-more-cards)
       (recur player-with-more-cards fn-decision-continue?))
-      player))
+    player))
+
+(defn end-game [player dealer]
+  (let [player-points (:points player)
+        dealer-points (:points dealer)
+        player-name (:player-name player)
+        dealer-name (:player-name dealer)
+        message (cond
+                  (and (> player-points 21) (> dealer-points 21)) "Ambos perderam!"
+                  (= player-points dealer-points) "Empate!"
+                  (> player-points 21) (str dealer-name " ganhou!")
+                  (> dealer-points 21) (str player-name " ganhou!")
+                  (> player-points dealer-points) (str player-name " ganhou!")
+                  (> dealer-points player-points) (str dealer-name " ganhou!"))]
+    (card-core/print-player player)
+    (card-core/print-player dealer)
+    (println message)))
 
 (def player01 (player "Victor Nevola"))
 (card-core/print-player player01)
 
 (def dealer (player "Dealer"))
-(card-core/print-player dealer)
+(card-core/print-masked-player dealer)
 
 (def player-after-game (game player01 player-decision-continue?))
-(game dealer (partial dealer-decision-continue? (:points player-after-game)))
+(def partial-dealer-decision-continue? (partial dealer-decision-continue? (:points player-after-game)))
+(def dealer-after-game (game dealer partial-dealer-decision-continue?))
+
+(end-game player-after-game dealer-after-game)
